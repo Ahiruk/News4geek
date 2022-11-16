@@ -1,0 +1,195 @@
+<DrawerClickableItem@MDNavigationDrawerItem>
+    focus_color: "#e7e4c0"
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    ripple_color: "#c5bdd2"
+    selected_color: "#0c6c4d"
+
+
+<DrawerLabelItem@MDNavigationDrawerItem>
+    text_color: "#4a4939"
+    icon_color: "#4a4939"
+    focus_behavior: False
+    selected_color: "#4a4939"
+    _no_ripple_effect: True
+<Ui>
+    
+    MDScreen:
+        name: 'login'
+        md_bg_color:0,0,0,1
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing:'12dp'
+            padding:'12dp'
+            MDBoxLayout:
+                orientation: 'vertical'
+                size_hint_y:0.3
+                MDLabel:
+                    text:'Iniciar Secion'
+                    haling:'center'
+                    color:'#FF5A1E'
+                    font_size:'28dp'
+                    bold:True
+                    pos_hint:{'center_y':0.5}
+
+            MDBoxLayout:
+                orientation: 'vertical'
+                size_hint_y:0.3
+                spacing: '12dp'
+                MDTextField:
+                    id:user
+                    hint_text:"Nombre de usuario"
+                    icon_left:"account"
+                    font_size:'20dp'
+                    icon_left_color:"#FF5A1E"
+                    pos_hint:{'center_x':0.5}
+                MDTextField:
+                    id:password
+                    password:True
+                    hint_text:"Contraseña"
+                    icon_left:"lock"
+                    font_size:'20dp'
+                    icon_left_color:"#FF5A1E"
+                    pos_hint:{'center_x':0.5}
+                
+                MDLabel:
+                    id: signal_login
+                    text:''
+                    haling: 'center'
+                    color:'#FF5A1E'
+                    font_size:'15dp'
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    size_hint_y:0.4
+                    spacing:'15dp'
+                    MDFillRoundFlatButton:
+                        id:bt_ingresar
+                        text:'Ingresar'
+                        pos_hint:{'center_x':0.5}
+                        on_release: root.current='open_screen' if app.login_data()== True else None
+                    MDFillRoundFlatButton:
+                        md_bg_color:"#000000"
+                        text_color: 255/255,90/255,30/255,1
+                        text:'Crear cuenta'
+                        font_size:'20dp'
+                        pos_hint:{'center_x':0.5}
+                        on_release:root.current='screen_register'
+
+    MDScreen:
+        name:'open_screen'
+        MDNavigationLayout:
+
+        MDScreenManager:
+
+            MDScreen:
+
+                MDTopAppBar:
+                    title: "News4geek"
+                    elevation: 4
+                    pos_hint: {"top": 1}
+                    md_bg_color: "#e7e4c0"
+                    specific_text_color: "#4a4939"
+                    left_action_items: [["menu", lambda x: nav_drawer.set_state("open")]]
+
+        MDNavigationDrawer:
+            id: nav_drawer
+            radius: (0, 16, 16, 0)
+
+            MDNavigationDrawerMenu:
+
+                MDNavigationDrawerHeader:
+                    title: "Menu"
+                    title_color: "#4a4939"
+                    text: "Hola, Luisa"
+                    spacing: "4dp"
+                    padding: "12dp", 0, 0, "56dp"
+
+
+                DrawerClickableItem:
+                    icon: "pluss"
+                    right_text: "+99"
+                    text_right_color: "#4a4939"
+                    text: "Publicaciones"
+
+                DrawerClickableItem:
+                    icon: "send"
+                    text: "Chats"
+                
+                DrawerClickableItem:
+                    icon: "send"
+                    text: "Grupos"
+
+
+
+
+
+
+    MDScreen:
+        name:'screen_register'
+        md_bg_color:0,0,0,1
+
+        MDBoxLayout:
+            orientation:'vertical'
+            padding:'12dp'
+            spacing: '12dp'
+            MDBoxLayout:
+                orientation:'vertical'
+                size_hint: 1,0.2
+                MDFloatingActionButton:
+                    icon:'arrow-left'
+                    pos_hint:{'center_y':0.5}
+                    on_release:
+                        root.current ='login'
+                        app.clear_signal()
+                    
+                MDLabel:
+                    text: 'Crear cuenta'
+                    haling:'center'
+                    color: '#FF5A1E'
+                    font_size:'28dp'
+                    bold:True
+                    pos_hint: {'center_y':0.5}
+
+            MDBoxLayout:
+                orientation: 'vertical'
+                size_hint:1,0.7
+                MDLabel:
+                    text:'Nombre de usuario'
+                    haling:'center'
+                    color: '#FF5A1E'
+                    font_size:'20dp'
+                MDTextField:
+                    id: new_user
+                    hint_text:"Usuario"
+                    icon_left:"account"
+                    font_size:'20dp'
+                    icon_left_color:'#FF5A1E'
+                    pos_hint:{'center_x':0.5}
+                MDLabel:
+                    text:'Ingrese su contraseña'
+                    haling:'center'
+                    color:'#FF5A1E'
+                    font_size:'20dp'
+                MDTextField:
+                    id:new_password
+                    password:True
+                    icon_left:"lock"
+                    icon_left_color:'#FF5A1E'
+                    hint_text:"Contraseña"
+                    font_size:'20dp'
+                    pos_hint:{'center_x':0.5}
+
+                MDBoxLayout:
+                    orientation: 'vertical'
+                    size_hint:1,0.3
+                    MDLabel:
+                        id: signal_register
+                        text:''
+                        haling:'center'
+                        color:'#FF5A1E'
+                        font_size:'15dp'
+                    MDFillRoundFlatButton:
+                        id: bt_register
+                        text:'Registrarse'
+                        pos_hint:{'center_x':0.5,'y':0.5}
+                        on_release: app.register_data()
